@@ -8,7 +8,7 @@ chdir(FCPATH);
 
 /*
  *---------------------------------------------------------------
- * BOOTSTRAP THE APPLICATION
+ * BOOTSTRAP THE APPLICATION hhh
  *---------------------------------------------------------------
  * This process sets up the path constants, loads and registers
  * our autoloader, along with Composer's, loads our constants
