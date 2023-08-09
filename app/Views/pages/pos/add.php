@@ -30,7 +30,7 @@
                                     <?php
                                     foreach ($products as $row) :
                                     ?>
-                                        <option value="<?= $row['id'] ?>" data-price="<?= $row['price'] ?>"><?= $row['code'] . " - " . $row['name'] ?></option>
+                                        <option value="<?= $row['id'] ?>" data-price="<?= $row['price'] ?>"><?= $row['barras'] . " - " . $row['name'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>

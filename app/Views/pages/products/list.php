@@ -26,8 +26,10 @@
                 <thead>
                     <th class="p-1 text-center">#</th>
                     <th class="p-1 text-center">Código</th>
+                    <th class="p-1 text-center">Cod de Barras</th>
                     <th class="p-1 text-center">Producto</th>
                     <th class="p-1 text-center">Descripción</th>
+                    <th class="p-1 text-center">Existencias</th>
                     <th class="p-1 text-center">Precio</th>
                     <th class="p-1 text-center">Acción</th>
                 </thead>
@@ -36,8 +38,10 @@
                         <tr>
                             <th class="p-1 text-center align-middle"><?= $row['id'] ?></th>
                             <td class="px-2 py-1 align-middle"><?= $row['code'] ?></td>
+                            <td class="px-2 py-1 align-middle"><?= $row['barras'] ?></td>
                             <td class="px-2 py-1 align-middle"><?= $row['name'] ?></td>
                             <td class="px-2 py-1 align-middle"><?= $row['description'] ?></td>
+                            <td class="px-2 py-1 align-middle text-end"><?= number_format($row['cantidad'], 2) ?></td>
                             <td class="px-2 py-1 align-middle text-end"><?= number_format($row['price'], 2) ?></td>
                             <td class="px-2 py-1 align-middle text-center">
                                 <a href="<?= base_url('Main/product_edit/' . $row['id']) ?>" class="mx-2 text-decoration-none text-primary"><i class="fa fa-edit"></i></a>

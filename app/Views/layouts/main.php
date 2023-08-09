@@ -70,6 +70,9 @@
                     <li><a class="nav-link <?= isset($page_title) && $page_title == 'POS' ? 'active' : '' ?>" href="<?= base_url('Main/pos') ?>">POS</a></li>
                     <li><a class="nav-link <?= isset($page_title) && $page_title == 'Transactions' ? 'active' : '' ?>" href="<?= base_url('Main/transactions') ?>">Transacciones</a></li>
                     <li><a class="nav-link <?= isset($page_title) && $page_title == 'Users' ? 'active' : '' ?>" href="<?= base_url('Main/users') ?>">Usuarios</a></li>
+                    <li><a class="nav-link <?= isset($page_title) && $page_title == 'eys' ? 'active' : '' ?>" href="<?= base_url('Main/eys') ?>">Entradas y Salidas</a></li>
+                    <li><a class="nav-link <?= isset($page_title) && $page_title == 'configuracion' ? 'active' : '' ?>" href="<?= base_url('Main/configuracion') ?>">Configuracion</a></li>
+
                 </ul>
                 <div class="dropdown">
                     <button type='button' class="" id="user-topnav-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-user rounded-circle border"></i> <?= $session->get('login_name') ?> <i class="fa fa-angle-down text-muted"></i></button>

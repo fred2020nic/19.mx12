@@ -1,0 +1,35 @@
+CRITICAL - 2023-08-09 02:52:34 --> Call to undefined function CodeIgniter\locale_set_default()
+in SYSTEMPATH\CodeIgniter.php on line 193.
+ 1 FCPATH\index.php(43): CodeIgniter\CodeIgniter->initialize()
+CRITICAL - 2023-08-09 10:21:48 --> Undefined variable: transactions
+in APPPATH\Views\pages\eys\list.php on line 34.
+ 1 APPPATH\Views\pages\eys\list.php(34): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: transactions', 'APPPATH\\Views\\pages\\eys\\list.php', 34, [...])
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\pages\\eys\\list.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1135): CodeIgniter\View\View->render('pages/eys/list', [], true)
+ 5 APPPATH\Controllers\Main.php(302): view('pages/eys/list', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(897): App\Controllers\Main->eys()
+ 7 SYSTEMPATH\CodeIgniter.php(467): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+ 8 SYSTEMPATH\CodeIgniter.php(350): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-08-09 10:22:34 --> Undefined variable: transactions
+in APPPATH\Views\pages\eys\list.php on line 34.
+ 1 APPPATH\Views\pages\eys\list.php(34): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: transactions', 'APPPATH\\Views\\pages\\eys\\list.php', 34, [...])
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\pages\\eys\\list.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1135): CodeIgniter\View\View->render('pages/eys/list', [], true)
+ 5 APPPATH\Controllers\Main.php(302): view('pages/eys/list', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(897): App\Controllers\Main->eys()
+ 7 SYSTEMPATH\CodeIgniter.php(467): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+ 8 SYSTEMPATH\CodeIgniter.php(350): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-08-09 10:47:06 --> There is no data to {0}.
+in SYSTEMPATH\BaseModel.php on line 718.
+ 1 SYSTEMPATH\BaseModel.php(718): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('insert')
+ 2 SYSTEMPATH\Model.php(666): CodeIgniter\BaseModel->insert([], false)
+ 3 SYSTEMPATH\BaseModel.php(658): CodeIgniter\Model->insert([...], false)
+ 4 APPPATH\Controllers\Main.php(329): CodeIgniter\BaseModel->save([...])
+ 5 SYSTEMPATH\CodeIgniter.php(897): App\Controllers\Main->empresa_add('$1')
+ 6 SYSTEMPATH\CodeIgniter.php(467): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+ 7 SYSTEMPATH\CodeIgniter.php(350): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()

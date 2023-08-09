@@ -35,17 +35,17 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Auth::index',['filter' => 'authenticated']);
-$routes->get('/register', 'Auth::register',['filter' => 'authenticated']);
-$routes->get('/Auth', 'Auth::index',['filter' => 'authenticated']);
-$routes->get('/update_user', 'Auth::update_user',['filter' => 'authenticate']);
-$routes->match(['post'], '/update_user', 'Auth::update_user',['filter' => 'authenticate']);
-$routes->get('/Auth/(:segment)', 'Auth::$1',['filter' => 'authenticated']);
-$routes->match(['post'], '/register', 'Auth::register',['filter' => 'authenticated']);
-$routes->match(['post'], '/login', 'Auth::index',['filter' => 'authenticated']);
+$routes->get('/', 'Auth::index', ['filter' => 'authenticated']);
+$routes->get('/register', 'Auth::register', ['filter' => 'authenticated']);
+$routes->get('/Auth', 'Auth::index', ['filter' => 'authenticated']);
+$routes->get('/update_user', 'Auth::update_user', ['filter' => 'authenticate']);
+$routes->match(['post'], '/update_user', 'Auth::update_user', ['filter' => 'authenticate']);
+$routes->get('/Auth/(:segment)', 'Auth::$1', ['filter' => 'authenticated']);
+$routes->match(['post'], '/register', 'Auth::register', ['filter' => 'authenticated']);
+$routes->match(['post'], '/login', 'Auth::index', ['filter' => 'authenticated']);
 $routes->get('/logout', 'Auth::logout');
 
-$routes->group('Main', ['filter'=>'authenticate'], static function($routes){
+$routes->group('Main', ['filter' => 'authenticate'], static function ($routes) {
     $routes->get('', 'Main::index');
     $routes->get('(:segment)', 'Main::$1');
     $routes->get('(:segment)/(:any)', 'Main::$1/$2');

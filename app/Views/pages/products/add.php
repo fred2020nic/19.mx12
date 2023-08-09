@@ -30,12 +30,20 @@
                     <input type="text" class="form-control rounded-0" id="code" name="code" autofocus placeholder="Código de Producto" value="<?= !empty($request->getPost('code')) ? $request->getPost('code') : '' ?>" required="required">
                 </div>
                 <div class="mb-3">
+                    <label for="code" class="control-label">Código de barras</label>
+                    <input type="text" class="form-control rounded-0" id="barras" name="barras" autofocus placeholder="Código de Barras" value="<?= !empty($request->getPost('barras')) ? $request->getPost('barras') : '' ?>" required="required">
+                </div>
+                <div class="mb-3">
                     <label for="name" class="control-label">Nombre</label>
                     <input type="text" class="form-control rounded-0" id="name" name="name" placeholder="Nombre de Producto" value="<?= !empty($request->getPost('name')) ? $request->getPost('name') : '' ?>" required="required">
                 </div>
                 <div class="mb-3">
                     <label for="description" class="control-label">Descripción</label>
                     <textarea rows="3" class="form-control rounded-0" id="description" name="description"><?= !empty($request->getPost('description')) ? $request->getPost('description') : '' ?></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="control-label">Existencias</label>
+                    <input type="number" step="any" class="form-control rounded-0 text-end" id="cantidad" name="cantidad" value="<?= !empty($request->getPost('cantidad')) ? $request->getPost('cantidad') : '' ?>" required="required">
                 </div>
                 <div class="mb-3">
                     <label for="price" class="control-label">Precio</label>

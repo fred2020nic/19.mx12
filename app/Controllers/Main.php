@@ -135,8 +135,10 @@ class Main extends BaseController
             extract($this->request->getPost());
             $udata = [];
             $udata['code'] = $code;
+            $udata['barras'] = $barras;
             $udata['name'] = $name;
             $udata['description'] = $description;
+            $udata['cantidad'] = $cantidad;
             $udata['price'] = $price;
             $checkCode = $this->prod_model->where('code', $code)->countAllResults();
             if ($checkCode) {
@@ -163,8 +165,10 @@ class Main extends BaseController
             extract($this->request->getPost());
             $udata = [];
             $udata['code'] = $code;
+            $udata['barras'] = $barras;
             $udata['name'] = $name;
             $udata['description'] = $description;
+            $udata['cantidad'] = $cantidad;
             $udata['price'] = $price;
             $checkCode = $this->prod_model->where('code', $code)->where("id!= '{$id}'")->countAllResults();
             if ($checkCode) {
@@ -288,5 +292,50 @@ class Main extends BaseController
             ->join('products', " transaction_items.product_id = products.id ", 'inner')
             ->findAll();
         return view('pages/pos/view', $this->data);
+    }
+
+    public function eys()
+    {
+        $this->data['page_title'] = "Entradas y Salidas";
+        $this->data['products'] =  $this->prod_model->findAll();
+
+        return view('pages/eys/list', $this->data);
+    }
+
+    public function configuracion()
+    {
+        $this->data['page_title'] = "Datos de la Empresa";
+        $this->data['products'] =  $this->prod_model->findAll();
+
+        return view('pages/configuraciones/add', $this->data);
+    }
+
+    public function empresa_add()
+    {
+        if ($this->request->getMethod() == 'post') {
+            extract($this->request->getPost());
+            $udata = [];
+            $udata['nombre'] = $nombre;
+            $udata['razon'] = $razon;
+            $udata['calle'] = $calle;
+            $udata['municipio'] = $municipio;
+            $udata['telefono'] = $telefono;
+            $udata['regimen'] = $regimen;
+            $udata['rfc'] = $rfc;
+            $udata['colonia'] = $colonia;
+            $udata['estado'] = $estado;
+            $udata['serie'] = $serie;
+            $udata['sucursal'] = $sucursal;
+            $save = $this->prod_model->save($udata);
+            if ($save) {
+                $this->session->setFlashdata('main_success', "Los detalles de la empresa se han actualizado correctamente.");
+                return redirect()->to('Main/products/');
+            } else {
+                $this->session->setFlashdata('error', "Los detalles de la empresa no se han podido actualizar.");
+            }
+        }
+
+        $this->data['page_title'] = "Agregar Nueva Empresa";
+        return view('pages/configuraciones/add', $this->data);
     }
 }
