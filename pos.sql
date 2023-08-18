@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-11-2022 a las 04:19:57
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.6
+-- Tiempo de generación: 19-08-2023 a las 01:45:57
+-- Versión del servidor: 10.4.25-MariaDB
+-- Versión de PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -56,8 +56,10 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 CREATE TABLE `products` (
   `id` int(30) UNSIGNED NOT NULL,
   `code` varchar(100) NOT NULL,
+  `barras` varchar(50) DEFAULT NULL,
   `name` varchar(250) NOT NULL,
   `description` text DEFAULT '',
+  `cantidad` float(12,2) NOT NULL,
   `price` float(12,2) NOT NULL DEFAULT 0.00,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -67,24 +69,25 @@ CREATE TABLE `products` (
 -- Volcado de datos para la tabla `products`
 --
 
-INSERT INTO `products` (`id`, `code`, `name`, `description`, `price`, `created_at`, `updated_at`) VALUES
-(1, '1001', 'Product 101', 'Sample Product #101', 55.50, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(2, '1002', 'Product 102', 'Sample Product #102', 150.00, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(4, '1004', 'Product 104', 'Sample Product #104', 23.50, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(5, '1005', 'Product 105', 'Sample Product #105', 60.50, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(6, '1006', 'Product 106', 'Sample Product #106', 205.25, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(7, '1007', 'Product 107', 'Sample Product #107', 45.00, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(8, '1008', 'Product 108', 'Sample Product #108', 75.23, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(9, '1009', 'Product 109', 'Sample Product #109', 106.55, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(10, '1010', 'Product 110', 'Sample Product #110', 375.50, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(11, '1011', 'Product 111', 'Sample Product #111', 87.45, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(12, '1012', 'Product 112', 'Sample Product #112', 104.99, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(13, '1013', 'Product 113', 'Sample Product #113', 55.33, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(14, '1014', 'Product 114', 'Sample Product #114', 88.99, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(15, '1015', 'Product 115', 'Sample Product #115', 67.25, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(16, '1016', 'Product 116', 'Sample Product #116', 195.85, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(17, '1017', 'Product 117', 'Sample Product #117', 499.99, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
-(18, '1025', 'Producto 112', 'Esta es un breve descripción del producto 112', 689.00, '2022-11-04 08:46:39', '2022-11-04 08:46:39');
+INSERT INTO `products` (`id`, `code`, `barras`, `name`, `description`, `cantidad`, `price`, `created_at`, `updated_at`) VALUES
+(1, '1001', NULL, 'Product 101', 'Sample Product #101', 0.00, 55.50, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(2, '1002', NULL, 'Product 102', 'Sample Product #102', 0.00, 150.00, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(4, '1004', NULL, 'Product 104', 'Sample Product #104', 0.00, 23.50, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(5, '1005', NULL, 'Product 105', 'Sample Product #105', 0.00, 60.50, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(6, '1006', NULL, 'Product 106', 'Sample Product #106', 0.00, 205.25, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(7, '1007', NULL, 'Product 107', 'Sample Product #107', 0.00, 45.00, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(8, '1008', NULL, 'Product 108', 'Sample Product #108', 0.00, 75.23, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(9, '1009', NULL, 'Product 109', 'Sample Product #109', 0.00, 106.55, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(10, '1010', NULL, 'Product 110', 'Sample Product #110', 0.00, 375.50, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(11, '1011', NULL, 'Product 111', 'Sample Product #111', 0.00, 87.45, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(12, '1012', NULL, 'Product 112', 'Sample Product #112', 0.00, 104.99, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(13, '1013', NULL, 'Product 113', 'Sample Product #113', 0.00, 55.33, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(14, '1014', NULL, 'Product 114', 'Sample Product #114', 0.00, 88.99, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(15, '1015', NULL, 'Product 115', 'Sample Product #115', 0.00, 67.25, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(16, '1016', NULL, 'Product 116', 'Sample Product #116', 0.00, 195.85, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(17, '1017', NULL, 'Product 117', 'Sample Product #117', 0.00, 499.99, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
+(18, '1025', NULL, 'Producto 112', 'Esta es un breve descripción del producto 112', 0.00, 689.00, '2022-11-04 08:46:39', '2022-11-04 08:46:39'),
+(19, '123', 'SDGDG3453DSF', 'DILAN', 'SDFSFD', 22.00, 43.00, '2023-08-18 11:16:26', '2023-08-18 11:16:26');
 
 -- --------------------------------------------------------
 
@@ -212,7 +215,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `transactions`

@@ -1,5 +1,25 @@
 <?= $this->extend('layouts/main') ?>
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pos";
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+$query = "SELECT t.*, SUM(ti.quantity) as total_items
+FROM transactions t
+INNER JOIN transaction_items ti ON t.id = ti.transaction_id
+GROUP BY t.id
+ORDER BY t.id DESC;";
+$result = mysqli_query($conn, $query);
 
+$transactions = array();
+
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $transactions[] = $row;
+    }
+}
+?>
 <?= $this->section('content') ?>
 <div class="card rounded-0">
     <div class="card-header">
@@ -52,9 +72,7 @@
                     <?php endif ?>
                 </tbody>
             </table>
-            <div>
-                <?= $pager->makeLinks($page, $perPage, $total, 'custom_view') ?>
-            </div>
+
         </div>
     </div>
 </div>

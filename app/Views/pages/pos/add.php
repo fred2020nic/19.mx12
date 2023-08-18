@@ -23,7 +23,7 @@
                     <legend class="px-3 mx-3">Agregar Producto</legend>
                     <div class="container-fluid">
                         <div class="row align-items-end">
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                 <label for="product" class="control-label">Elija el Producto</label>
                                 <select id="product" class="form-select rounded-0">
                                     <option value="" disabled selected></option>
@@ -34,7 +34,11 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <label for="product" class="control-label">Codigo de Barras</label>
+                                <input type="text" id="barras" name="barras">
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                 <button class="btn btn-primary bg-gradient rounded-0 btn-sm" type="button" id="add_item"><i class="far fa-plus-square"></i> Agregar Producto</button>
                             </div>
                         </div>
@@ -159,43 +163,58 @@
             width: '100%',
         })
 
+
         $('#add_item').click(function() {
-            var pid = $('#product').val()
-            if ($('#item-table tbody tr[data-id="' + pid + '"]').length > 0) {
-                $('#item-table tbody tr[data-id="' + pid + '"]').find('[name="quantity[]"]').val(parseInt($('#item-table tbody tr[data-id="' + pid + '"]').find('[name="quantity[]"]').val()) + 1).trigger('change')
-                $('#product').val('').trigger('change')
-                return false;
+            var barras = $("#barras").val();
+            if (barras != "" && barras != null) {
+                $("#product option").each(function() {
+                    var optionText = $(this).text();
+                    var optionValue = optionText.split(" -")[0];
+                    if (optionValue == barras) {
+                        $(this).prop("selected", true);
+                    }
+                });
+                $("#barras").val("");
             }
-            var pname = $('#product option[value="' + pid + '"]').text()
-            var price = $('#product option[value="' + pid + '"]').attr('data-price')
-            var tr = $($('noscript#item-clone').html()).clone()
-            tr.attr('data-id', pid)
-            tr.find('[name="product_id[]"]').val(pid)
-            tr.find('[name="price[]"]').val(price)
-            tr.find('.product_item').text(pname)
-            tr.find('.unit_price').text(parseFloat(price).toLocaleString('en-US', {
-                style: 'decimal',
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2
-            }))
-            tr.find('.total_price').text(parseFloat(price).toLocaleString('en-US', {
-                style: 'decimal',
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2
-            }))
-            $('#item-table tbody').append(tr)
-            $('#product').val('').trigger('change')
-            calculate_total()
-            tr.find('.rem_item').click(function() {
-                if (confirm("Are you sure to remove this item") === true) {
-                    tr.remove()
-                    calculate_total()
+            var pid = $('#product').val()
+            if (pid != "" && pid != null) {
+                if ($('#item-table tbody tr[data-id="' + pid + '"]').length > 0) {
+                    $('#item-table tbody tr[data-id="' + pid + '"]').find('[name="quantity[]"]').val(parseInt($('#item-table tbody tr[data-id="' + pid + '"]').find('[name="quantity[]"]').val()) + 1).trigger('change')
+                    $('#product').val('').trigger('change')
+                    return false;
                 }
-            })
-            tr.find('[name="quantity[]"]').on('change input', function() {
+                var pname = $('#product option[value="' + pid + '"]').text()
+                var price = $('#product option[value="' + pid + '"]').attr('data-price')
+                var tr = $($('noscript#item-clone').html()).clone()
+                tr.attr('data-id', pid)
+                tr.find('[name="product_id[]"]').val(pid)
+                tr.find('[name="price[]"]').val(price)
+                tr.find('.product_item').text(pname)
+                tr.find('.unit_price').text(parseFloat(price).toLocaleString('en-US', {
+                    style: 'decimal',
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2
+                }))
+                tr.find('.total_price').text(parseFloat(price).toLocaleString('en-US', {
+                    style: 'decimal',
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2
+                }))
+                $('#item-table tbody').append(tr)
+                $('#product').val('').trigger('change')
                 calculate_total()
-            })
+                tr.find('.rem_item').click(function() {
+                    if (confirm("Are you sure to remove this item") === true) {
+                        tr.remove()
+                        calculate_total()
+                    }
+                })
+                tr.find('[name="quantity[]"]').on('change input', function() {
+                    calculate_total()
+                })
+            }
         })
+
         $('[name="tendered"]').on('input change', function() {
             var tendered = $(this).val()
             var amount = $('[name="total_amount"]').val()
