@@ -5,18 +5,14 @@ $username = "root";
 $password = "";
 $dbname = "pos";
 $conn = mysqli_connect($servername, $username, $password, $dbname);
-$query = "SELECT t.*, SUM(ti.quantity) as total_items
-FROM transactions t
-INNER JOIN transaction_items ti ON t.id = ti.transaction_id
-GROUP BY t.id
-ORDER BY t.id DESC;";
+$query = "SELECT m.*,p.name FROM movimientos m INNER JOIN products p ON m.producto = p.id;";
 $result = mysqli_query($conn, $query);
 
-$transactions = array();
+$productos = array();
 
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
-        $transactions[] = $row;
+        $productos[] = $row;
     }
 }
 ?>
@@ -27,6 +23,9 @@ if (mysqli_num_rows($result) > 0) {
             <div class="col-auto">
                 <div class="card-title h4 mb-0 fw-bolder">Entradas y Salidas</div>
             </div>
+            <div class="col-auto">
+                <a href="<?= base_url('Main/eys_add') ?>" class="btn btn btn-primary bg-gradient border rounded-0"><i class="far fa-plus-square"></i> Crear Movimiento</a>
+            </div>
         </div>
     </div>
     <div class="card-body">
@@ -34,38 +33,29 @@ if (mysqli_num_rows($result) > 0) {
             <table class="table table-stripped table-bordered">
                 <colgroup>
                     <col width="5%">
-                    <col width="15%">
-                    <col width="15%">
+                    <col width="25%">
                     <col width="25%">
                     <col width="10%">
-                    <col width="20%">
                     <col width="10%">
                 </colgroup>
                 <thead>
                     <th class="p-1 text-center">#</th>
-                    <th class="p-1 text-center">Fecha/Hora</th>
-                    <th class="p-1 text-center">Código</th>
-                    <th class="p-1 text-center">Cliente</th>
-                    <th class="p-1 text-center"># Productos</th>
-                    <th class="p-1 text-center">Monto Total</th>
-                    <th class="p-1 text-center">Acción</th>
+                    <th class="p-1 text-center">Fecha</th>
+                    <th class="p-1 text-center">Producto</th>
+                    <th class="p-1 text-center">Tipo</th>
+                    <th class="p-1 text-center">Cantidad</th>
                 </thead>
                 <tbody>
-                    <?php foreach ($transactions as $row) : ?>
+                    <?php foreach ($productos as $row) : ?>
                         <tr>
                             <th class="p-1 text-center align-middle"><?= $row['id'] ?></th>
-                            <td class="px-2 py-1 align-middle"><?= date("Y-m-d h:i A", strtotime($row['created_at'])) ?></td>
-                            <td class="px-2 py-1 align-middle"><?= $row['code'] ?></td>
-                            <td class="px-2 py-1 align-middle"><?= $row['customer'] ?></td>
-                            <td class="px-2 py-1 align-middle text-end"><?= number_format($row['total_items']) ?></td>
-                            <td class="px-2 py-1 align-middle text-end"><?= number_format($row['total_amount'], 2) ?></td>
-                            <td class="px-2 py-1 align-middle text-center">
-                                <a href="<?= base_url('Main/transaction_view/' . $row['id']) ?>" class="mx-2 text-decoration-none text-dark"><i class="fa fa-eye"></i></a>
-                                <a href="<?= base_url('Main/transaction_delete/' . $row['id']) ?>" class="mx-2 text-decoration-none text-danger" onclick="if(confirm('Deseas eliminar <?= $row['code'] ?> de la lista?') !== true) event.preventDefault()"><i class="fa fa-trash"></i></a>
-                            </td>
+                            <td class="px-2 py-1 align-middle"><?= date("Y-m-d", strtotime($row['fecha'])) ?></td>
+                            <td class="px-2 py-1 align-middle"><?= $row['name'] ?></td>
+                            <td class="px-2 py-1 align-middle"><?= $row['tipo'] == 1 ? 'Entrada' : 'Salida'; ?></td>
+                            <td class="px-2 py-1 align-middle text-end"><?= number_format($row['cantidad']) ?></td>
                         </tr>
                     <?php endforeach; ?>
-                    <?php if (count($transactions) <= 0) : ?>
+                    <?php if (count($productos) <= 0) : ?>
                         <tr>
                             <td class="p-1 text-center" colspan="7">Sin resultados que mostrar</td>
                         </tr>

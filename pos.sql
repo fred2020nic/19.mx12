@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-08-2023 a las 01:45:57
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 7.4.30
+-- Tiempo de generación: 19-08-2023 a las 20:55:55
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -20,6 +21,36 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `pos`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `clientes`
+--
+
+CREATE TABLE `clientes` (
+  `id` int(100) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `razon` varchar(50) NOT NULL,
+  `calle` varchar(50) NOT NULL,
+  `municipio` varchar(30) NOT NULL,
+  `telefono` int(12) NOT NULL,
+  `regimen` varchar(20) NOT NULL,
+  `rfc` varchar(20) NOT NULL,
+  `colonia` varchar(30) NOT NULL,
+  `estado` varchar(30) NOT NULL,
+  `serie` varchar(50) NOT NULL,
+  `sucursal` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `nombre`, `razon`, `calle`, `municipio`, `telefono`, `regimen`, `rfc`, `colonia`, `estado`, `serie`, `sucursal`) VALUES
+(1, '1', '2', '3', '4', 5, '6', '7', '8', '9', '10', '11'),
+(2, '1', '2', '3', '4', 5, '6', '7', '8', '9', '10', '11'),
+(3, '1', '2', '1', '1', 2, '3', '3', '2', '3', '4', '4');
 
 -- --------------------------------------------------------
 
@@ -46,6 +77,31 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 (10, '2022-06-22-060131', 'App\\Database\\Migrations\\Product', 'default', 'App', 1655887322, 1),
 (11, '2022-06-22-060355', 'App\\Database\\Migrations\\Transaction', 'default', 'App', 1655887322, 1),
 (12, '2022-06-22-060410', 'App\\Database\\Migrations\\TransactionItem', 'default', 'App', 1655887322, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `movimientos`
+--
+
+CREATE TABLE `movimientos` (
+  `id` int(100) NOT NULL,
+  `producto` int(100) NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  `cantidad` float(12,2) NOT NULL,
+  `tipo` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `movimientos`
+--
+
+INSERT INTO `movimientos` (`id`, `producto`, `fecha`, `cantidad`, `tipo`) VALUES
+(1, 1, '2023-08-16 00:00:00', 24.30, 0),
+(3, 5, '2023-08-19 13:49:53', 12.00, 1),
+(4, 19, '2023-08-19 13:54:41', 12.00, 1),
+(5, 19, '2023-08-19 13:55:10', 120.00, 1),
+(6, 19, '2023-08-19 13:55:31', 54.00, 0);
 
 -- --------------------------------------------------------
 
@@ -87,7 +143,7 @@ INSERT INTO `products` (`id`, `code`, `barras`, `name`, `description`, `cantidad
 (16, '1016', NULL, 'Product 116', 'Sample Product #116', 0.00, 195.85, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
 (17, '1017', NULL, 'Product 117', 'Sample Product #117', 0.00, 499.99, '2022-06-22 16:42:07', '2022-06-22 16:42:07'),
 (18, '1025', NULL, 'Producto 112', 'Esta es un breve descripción del producto 112', 0.00, 689.00, '2022-11-04 08:46:39', '2022-11-04 08:46:39'),
-(19, '123', 'SDGDG3453DSF', 'DILAN', 'SDFSFD', 22.00, 43.00, '2023-08-18 11:16:26', '2023-08-18 11:16:26');
+(19, '123', 'SDGDG3453DSF', 'DILAN', 'SDFSFD', 100.00, 43.00, '2023-08-18 11:16:26', '2023-08-19 13:55:31');
 
 -- --------------------------------------------------------
 
@@ -171,9 +227,21 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_a
 --
 
 --
+-- Indices de la tabla `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `movimientos`
+--
+ALTER TABLE `movimientos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -206,10 +274,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `movimientos`
+--
+ALTER TABLE `movimientos`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `products`

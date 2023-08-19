@@ -157,6 +157,34 @@ class Main extends BaseController
         $this->data['page_title'] = "Agregar Nuevo Producto";
         return view('pages/products/add', $this->data);
     }
+    public function eys_add()
+    {
+        if ($this->request->getMethod() == 'post') {
+            extract($this->request->getPost());
+            $udata = [];
+            $udata['code'] = $code;
+            $udata['barras'] = $barras;
+            $udata['name'] = $name;
+            $udata['description'] = $description;
+            $udata['cantidad'] = $cantidad;
+            $udata['price'] = $price;
+            $checkCode = $this->prod_model->where('code', $code)->countAllResults();
+            if ($checkCode) {
+                $this->session->setFlashdata('error', "Código de producto ya tomado.");
+            } else {
+                $save = $this->prod_model->save($udata);
+                if ($save) {
+                    $this->session->setFlashdata('main_success', "Los detalles del producto se han actualizado correctamente.");
+                    return redirect()->to('Main/products/');
+                } else {
+                    $this->session->setFlashdata('error', "Los detalles del producto no se han podido actualizar.");
+                }
+            }
+        }
+
+        $this->data['page_title'] = "Agregar Nuevo Movimiento";
+        return view('pages/eys/add', $this->data);
+    }
     public function product_edit($id = '')
     {
         if (empty($id))

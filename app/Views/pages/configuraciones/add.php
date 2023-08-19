@@ -14,7 +14,7 @@
     </div>
     <div class="card-body">
         <div class="container-fluid">
-            <form action="<?= base_url('Main/empresa_add') ?>" method="POST">
+            <form action="" method="POST">
                 <?php if ($session->getFlashdata('error')) : ?>
                     <div class="alert alert-danger rounded-0">
                         <?= $session->getFlashdata('error') ?>
@@ -74,7 +74,7 @@
                             <input type="text" step="any" class="form-control rounded-0 text-end" id="sucursal" name="sucursal" value="<?= !empty($request->getPost('sucursal')) ? $request->getPost('sucursal') : '' ?>" required="required">
                         </div>
                         <div class="d-grid gap-1">
-                            <button class="btn rounded-0 btn-primary bg-gradient">Guardar</button>
+                            <button class="btn rounded-0 btn-primary bg-gradient" id="guardar">Guardar</button>
                         </div>
                     </div>
                 </div>
@@ -85,4 +85,35 @@
 <div class="footer">
     <h2><a href="https://www.configuroweb.com/46-aplicaciones-gratuitas-en-php-python-y-javascript/#Aplicaciones-gratuitas-en-PHP,-Python-y-Javascript" style="color: white; text-decoration:none;">Para más desarrollos ConfiguroWeb</a></h2>
 </div>
+<script>
+    $("#guardar").click(function(e) {
+        e.preventDefault();
+        var nombre = $("#nombre").val();
+        var razon = $("#razon").val();
+        var calle = $("#calle").val();
+        var municipio = $("#municipio").val();
+        var telefono = $("#telefono").val();
+        var regimen = $("#regimen").val();
+        var rfc = $("#rfc").val();
+        var colonia = $("#colonia").val();
+        var estado = $("#estado").val();
+        var serie = $("#serie").val();
+        var sucursal = $("#sucursal").val();
+        var dataString = 'nombre=' + nombre + '&razon=' + razon + '&calle=' + calle + '&municipio=' + municipio + '&telefono=' + telefono + '&regimen=' + regimen + '&rfc=' + rfc + '&colonia=' + colonia + '&estado=' + estado + '&serie=' + serie + '&sucursal=' + sucursal;
+
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url('ajax.php') ?>",
+            data: dataString,
+            success: function(data) {
+                if (data == 1) {
+                    alert("Empresa agregada correctamente");
+                    location.reload();
+                } else {
+                    console.log(data);
+                }
+            }
+        });
+    });
+</script>
 <?= $this->endSection() ?>
